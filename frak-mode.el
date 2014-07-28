@@ -87,7 +87,7 @@
       (setq outerspace-string (concat outerspace-string
                                       (propertize "-"
                                                   'display (create-image +frak-outerspace-image+ 'xpm nil :ascent 'center)))))
-    ;; Compute Frak Cat string.
+    ;; Compute Frak string.
     (concat frak-trogg-string
             yoyo-string
             frakcat-string
