@@ -1,8 +1,9 @@
 /* XPM */
-static char * outerspace_xpm[] = {
-"8 15 2 1",
+static char * C:\HomeDev\frak_mode\img\outerspace_xpm[] = {
+"8 16 2 1",
 " 	c None",
 ".	c #003366",
+"........",
 "........",
 "........",
 "........",

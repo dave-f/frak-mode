@@ -3,11 +3,10 @@
 ;;; Author: Dave Footitt
 ;;; URL: 
 ;;; Version: 0.1
-;;; Keywords: frak, cat, lulz, pop tart cat, build something amazing
+;;; Keywords: frak
 ;;; 
-;;; Inspired by (and in few places copied from) sml-modeline.el,
-;;; written by Lennart Borgman
-;;; See: http://bazaar.launchpad.net/~nxhtml/nxhtml/main/annotate/head%3A/util/sml-modeline.el
+;;; Originally forked from 'nyan-mode'
+;;; See: https://github.com/TeMPOraL/nyan-mode
 
 ;; LICENSE
 ;;
@@ -40,7 +39,7 @@
       (frak-mode -1)
       (frak-mode 1))))
 
-(defcustom frak-bar-length 32
+(defcustom frak-bar-length 30
   "Length of Frak bar in units; each unit is equal to an 8px
   image. Minimum of 3 units are required for Frak."
   :set (lambda (sym val)
@@ -49,18 +48,19 @@
   :group 'frak)
 
 (defconst +frak-directory+ (file-name-directory (or load-file-name buffer-file-name)))
-(defconst +frak-cat-size+ 3)
-(defconst +frak-cat-image+ (concat +frak-directory+ "img/nyan.xpm")) ; yoyo
-(defconst +frak-rainbow-image+ (concat +frak-directory+ "img/trogg.xpm"))
+(defconst +frak-cat-size+ 2)
+(defconst +frak-trogg-image+ (concat +frak-directory+ "img/trogg.xpm")) ; yoyo
+(defconst +frak-string-image+ (concat +frak-directory+ "img/string.xpm"))
 (defconst +frak-outerspace-image+ (concat +frak-directory+ "img/outerspace.xpm"))
 (defconst +frak-yoyo-image+ (concat +frak-directory+ "img/yoyo.xpm"))
 
-(defvar frak-cat-image (create-image +frak-cat-image+ 'xpm nil :ascent 'center))
+(defvar frak-yoyo-image (create-image +frak-yoyo-image+ 'xpm nil :ascent 'center))
+(defvar frak-trogg-image (create-image +frak-trogg-image+ 'xpm nil :ascent 'center))
 
 (defun frak-get-anim-frame ()
-  frak-cat-image)
+  frak-yoyo-image)
 
-(defun frak-number-of-rainbows () ; number of yoyos
+(defun frak-number-of-yoyo-strings () ; number of yoyos
   (round (/ (* (round (* 100
                          (/ (- (float (point))
                                (float (point-min)))
@@ -69,23 +69,27 @@
           100)))
 
 (defun frak-create ()
-  (let* ((rainbows (frak-number-of-rainbows))
-         (outerspaces (- frak-bar-length rainbows +frak-cat-size+))
-         (rainbow-string "")
+  (let* ((yoyo-strings (frak-number-of-yoyo-strings))
+         (outerspaces (- frak-bar-length yoyo-strings +frak-cat-size+))
+         (yoyo-string "")
+         (frak-trogg-string (propertize "[]*"
+                                     'display frak-trogg-image))
          (frakcat-string (propertize "[]*"
                                      'display (frak-get-anim-frame)))
          (outerspace-string ""))
-    (dotimes (number rainbows)
-      (setq rainbow-string (concat rainbow-string
-                                   (propertize "|"
-                                               'display (create-image +frak-rainbow-image+ 'xpm nil :ascent 'center)))))
+
+    (dotimes (number yoyo-strings)
+      (setq yoyo-string (concat yoyo-string
+                                (propertize "|"
+                                            'display (create-image +frak-string-image+ 'xpm nil :ascent 'center)))))
 
     (dotimes (number outerspaces)
       (setq outerspace-string (concat outerspace-string
                                       (propertize "-"
                                                   'display (create-image +frak-outerspace-image+ 'xpm nil :ascent 'center)))))
     ;; Compute Frak Cat string.
-    (concat rainbow-string
+    (concat frak-trogg-string
+            yoyo-string
             frakcat-string
             outerspace-string)))
 
