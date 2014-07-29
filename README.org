@@ -2,7 +2,7 @@
 
 [[file:screenshot.png]]
 
-Frak Mode is an analog indicator of your position in the buffer. Trogg's
+Frak Mode is an analogue indicator of your position in the buffer. Trogg's
 yoyo should go from left to right in your mode-line, as you move your
 point from 0% to 100%.
 
